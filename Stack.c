@@ -5,9 +5,19 @@
 
 Stack *init_stack(unsigned capacity) {
 	Stack *stack = (Stack*) malloc( sizeof(Stack) );
+
+	if (stack == NULL) {
+		exit(EXIT_FAILURE);
+	}
+
 	stack->size = 0;
 	stack->capacity = capacity;
 	stack->array = (int*) malloc( capacity * sizeof(int) );
+
+	if (stack->array == NULL) {
+		exit(EXIT_FAILURE);
+	}
+
 	return stack;
 }
 
@@ -27,6 +37,11 @@ bool is_empty(Stack* stack) {
 void push(Stack* stack, int value) {
 	if (stack->size == stack->capacity) {
 		stack->array = realloc( stack->array, stack->size+1 );
+
+		if (stack->array == NULL) {
+			exit(EXIT_FAILURE);
+		}
+
 		stack->capacity++;
 	}
 	stack->array[ stack->size ] = value;
